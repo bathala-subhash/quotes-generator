@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://www.wallpaperflare.com/static/700/827/759/blue-ocean-water-sea-wallpaper.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        }
+    
+        #btn {
+            padding: 10px 25px;
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+    
+        #btn:hover {
+            background-color: #ff3b2e;
+            transform: translateY(-2px);
+        }
+    
+        #post {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        #post div {
+            background-color: rgba(111, 217, 236, 0.85);
+            border: 2px solid #ff6f61;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            max-width: 700px;
+            width: 90%;
+            margin: 10px auto;
+            transition: transform 0.2s ease;
+        }
+    
+        #post div:hover {
+            transform: scale(1.02);
+        }
+    
+        #post h1 {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+    
+        #post p {
+            font-style: italic;
+            color: #555;
+            font-size: 1rem;
+        }
+    </style>
+    
+   
+
+    
+    
+</head>
+<body>
+    <h1>quotes</h1>
+
+    <button id="btn" onclick="loadpost()">click</button>
+    <div id="post"></div>
+
+    <script>
+        
+
+        async function loadpost() {
+            let parentele=document.getElementById("post")
+            parentele.innerHTML=""
+            try{
+                let response= await fetch(`https://jacintodesign.github.io/quotes-api/data/quotes.json`)
+                let data=await response.json()
+
+                let index=Math.ceil(Math.random()*(data.length))
+                console.log(index)
+                let quotes=data[index]
+                let divele=document.createElement("div")
+                divele.innerHTML=`<h1>${quotes.text}</h1><br/><p>${quotes.author}</p>`
+                parentele.appendChild(divele)
+
+
+
+
+                
+                
+
+            }catch(err)  {
+                console.log("error", err);
+
+            }
+            
+        }
+        document.addEventListener("DOMContentLoaded",function(){
+            loadpost()
+        })
+    </script>
+</body>
+</html>
